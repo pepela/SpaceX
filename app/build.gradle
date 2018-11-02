@@ -1,0 +1,68 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
+    defaultConfig {
+        applicationId "com.pepela.spacex"
+        minSdkVersion globalConfiguration["androidMinSdkVersion"]
+        targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        quiet true
+        abortOnError false
+        ignoreWarnings true
+    }
+}
+
+dependencies {
+    implementation project(":data")
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    def mobileUiDependencies = rootProject.ext.mobileUiDependencies
+    def mobileUiTestDependencies = rootProject.ext.mobileUiTestDependencies
+
+    implementation mobileUiDependencies.kotlin
+    implementation mobileUiDependencies.rxKotlin
+    implementation mobileUiDependencies.androidAnnotations
+    implementation mobileUiDependencies.appCompat
+    implementation mobileUiDependencies.recyclerView
+    implementation mobileUiDependencies.constraintLayout
+    implementation mobileUiDependencies.material
+    implementation mobileUiDependencies.rxAndroid
+    implementation mobileUiDependencies.koin
+    implementation mobileUiDependencies.koinArch
+    implementation mobileUiDependencies.koin
+    implementation mobileUiDependencies.ankoCommons
+    implementation mobileUiDependencies.archExtensions
+    implementation mobileUiDependencies.roomRxJava
+
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+}

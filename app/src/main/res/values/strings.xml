@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">SpaceX</string>
+    <string name="launches_msg_no_data">No launches</string>
+</resources>
